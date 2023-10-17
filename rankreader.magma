@@ -1,0 +1,11 @@
+
+file:=Read("medcond.txt");
+sp := Split(file,"\n");
+SetClassGroupBounds("GRH");
+
+for i in sp do
+	vec:=Split(i,",");
+	E:=EllipticCurve([StringToInteger(vec[2]),StringToInteger(vec[3]),StringToInteger(vec[4]),StringToInteger(vec[5]),StringToInteger(vec[6])]);
+	time AnalyticRank(E:Precision:=1);
+
+end for;
