@@ -1,0 +1,17 @@
+file:=Read("largecond.txt");
+ sp := Split(file,"\n");
+ SetClassGroupBounds("GRH");
+
+
+for i in sp do 
+
+	a,b,c :=Regexp("([0-9-]+)\,\\[([0-9-]+)\,([0-9-]+)\,([0-9-]+)\,([0-9-\]+)\,([0-9-]+)\\]\,([0-9-]+)\\]",i);         
+	E:= EllipticCurve([StringToInteger(c[2]),StringToInteger(c[3]),StringToInteger(c[4]),StringToInteger(c[5]),StringToInteger(c[6])]); 
+
+	E;
+	b2:=StringToInteger(c[2])^2+4*StringToInteger(c[3]);
+	b4:=StringToInteger(c[2])StringToInteger(c[4]) +2*StringToInteger(c[5]); 
+	b6:=StringToInteger(c[4])^2+4*StringToInteger(c[6]);
+	
+
+end for;

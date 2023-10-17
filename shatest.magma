@@ -1,0 +1,24 @@
+file:=Read("largecond.txt");
+ sp := Split(file,"\n");
+ SetClassGroupBounds("GRH");
+
+
+for i in sp do 
+
+	a,b,c :=Regexp("([0-9-]+)\,\\[([0-9-]+)\,([0-9-]+)\,([0-9-]+)\,([0-9-\]+)\,([0-9-]+)\\]\,([0-9-]+)\\]",i);         
+	E:= EllipticCurve([StringToInteger(c[2]),StringToInteger(c[3]),StringToInteger(c[4]),StringToInteger(c[5]),StringToInteger(c[6])]); 
+	E := EllipticCurve([0, 0, 0, 3780, -174420]);	
+	L := LSeries(E);  
+	an := LGetCoefficients(L,2000000);
+	n:= #an;
+	sum:=0;
+	r:=Rank(E);
+	for i in [1..n] do
+		sum:=sum+(an[i]*Log(10,i)^r)/i;
+	end for;
+	sum:= (-1)^r*sum/(Factorial(r)); 		
+	sum;
+	time ra, Lvalue := AnalyticRank(E : Precision:=1);
+	Lvalue;
+
+end for;

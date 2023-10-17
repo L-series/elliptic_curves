@@ -1,0 +1,50 @@
+file:=Read("medcond.txt");
+ sp := Split(file,"\n");
+ SetClassGroupBounds("GRH");
+
+
+for i in sp do 
+
+
+	//Shitty approx to Sha
+
+	a,b,c :=Regexp("([0-9-]+)\,\\[([0-9-]+)\,([0-9-]+)\,([0-9-]+)\,([0-9-\]+)\,([0-9-]+)\\]\,([0-9-]+)\\]",i);         
+	E:= EllipticCurve([StringToInteger(c[2]),StringToInteger(c[3]),StringToInteger(c[4]),StringToInteger(c[5]),StringToInteger(c[6])]); 
+
+        time r, Lvalue := AnalyticRank(E : Precision:=1); 
+	reg:=Regulator(E);
+	Ta:=TamagawaNumbers(E);
+	Taprod:=1;
+
+	for el in Ta do
+		Taprod:=el*Taprod;
+	end for;
+
+	Tors:=Order(TorsionSubgroup(E));
+	Pe := (Discriminant(E) gt 0 select 2 else 1) * RealPeriod(E);	
+	denom := reg*Taprod*Pe;
+
+	Sha:=Tors^2*Lvalue/(denom);
+
+
+	//ChangePrecision(Sha,100);
+	sha2:=Floor(Sha);
+	numdigits:=#Sprint(sha2);
+	
+	
+
+	if numdigits ne 1 then
+		r,L:=AnalyticRank(E:Precision:=numdigits);
+		revisedsha:=L*Tors^2/denom;
+		revisedsha;
+	elif Sha le 0.5 then
+		r,L:=AnalyticRank(E:Precision:=4);                 
+		revisedsha:=L*Tors^2/denom;                 
+		revisedsha; 	 
+	else 
+		Sha;
+	end if;			
+
+	 
+		
+end for; 
